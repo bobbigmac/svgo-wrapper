@@ -1,25 +1,28 @@
 # svgo-wrapper
 
-Unofficial Meteor package to wrap [svgo: Nodejs-based tool for optimizing SVG vector graphics files](https://github.com/svg/svgo).
+Unofficial package for [Meteor](https://www.meteor.com) to wrap [svgo: nodejs-based tool for optimizing SVG vector graphics files](https://github.com/svg/svgo).
 
 ## Usage
+
+Meteor-friendly (synchronous)
+
+```javascript
+var svgo = new SVGO(); // uses defaults
+var optimized = svgo.optimizeSync(svgString); // \o/
+```
+
+or original API (asynchronous)
 
 ```javascript
 var svgo = new SVGO({
   plugins: [{
     removeDoctype: false
   }, {
-    removeComments: false
-  }, {
     cleanupNumericValues: {
       floatPrecision: 2
     }
-  }, {
-    convertColors: {
-      names2hex: false,
-      rgb2hex: false
-    }
   }]
+  // ...
 });
 
 svgo.optimize(svgString, function(result) {
@@ -30,12 +33,6 @@ svgo.optimize(svgString, function(result) {
 	}
 });
 ```
-
-[For options see svgo source](https://github.com/svg/svgo/)
-
-## TODO
-
-Should probably wrap in a sync wrapper since it's server-side.
 
 ## Notes
 
