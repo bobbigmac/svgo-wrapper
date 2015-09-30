@@ -1,6 +1,6 @@
-# svgo wrapper
+# svgo-wrapper
 
-Unofficial wrapper for [svgo: Nodejs-based tool for optimizing SVG vector graphics files](https://github.com/svg/svgo).
+Unofficial Meteor package to wrap [svgo: Nodejs-based tool for optimizing SVG vector graphics files](https://github.com/svg/svgo).
 
 ## Usage
 
