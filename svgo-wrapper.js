@@ -7,13 +7,22 @@ Future = Npm.require('fibers/future');
 SVGO.prototype.optimizeSync = function(svgString) {
 	var future = new Future();
 
-	this.optimize(svgString, function(result) {
-		if(result.error) {
-			future.throw(result.error);
-		} else {
-			future.return(result.data);
-		}
-	});
-
-	return future.wait();
+	try {
+		this.optimize(svgString, function(result) {
+			if(!future.isResolved || (future.isResolved && !future.isResolved())) {
+				if(result.error) {
+					future.return(svgString);
+				} else {
+					//success
+					future.return(result.data);
+				}
+			}
+		});
+		
+		return future.wait();
+	} catch(exc) {
+		//probably warped/broken xml
+		console.warn('Exception while optimising svg, returning original svgString', exc.message);
+		return svgString;
+	}
 };
